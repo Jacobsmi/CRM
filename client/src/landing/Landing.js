@@ -1,6 +1,5 @@
 import { Button, AppBar, Toolbar, Typography, Grid, Box } from '@mui/material';
 import { Link, useHistory } from "react-router-dom";
-import SignupLink from "./SignupLink";
 
 const buttonClick = (buttonNum, history) => {
   if (buttonNum === 1) {
@@ -14,7 +13,11 @@ export default function Landing() {
   let history = useHistory();
 
   return (
-    <div className="Landing">
+    <div className="Landing" style={{
+      height: "100vh",
+      display: "grid",
+      gridTemplateRows: "5fr 95fr"
+    }}> 
       <AppBar position="static">
         <Toolbar>
 
@@ -43,6 +46,12 @@ export default function Landing() {
 
         </Toolbar>
       </AppBar>
+
+      <Box sx={{ display: "flex", justifyContent: "space-around", alignItems: "center", flexDirection: "column"}}>
+        <Typography variant="h3">Customer Relation Manager</Typography>
+        <Typography variant="h5">The best way to manage customer and your business' relationship with them.</Typography>
+        <Button variant="contained" component={Link} to="/signup" style={{height:"50px", width: "200px"}}>Get Started</Button>
+      </Box>
 
     </div>
   )
