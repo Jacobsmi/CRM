@@ -1,23 +1,14 @@
-import { Button, AppBar, Toolbar, Typography, Grid, Box } from '@mui/material';
-import { Link, useHistory } from "react-router-dom";
-
-const buttonClick = (buttonNum, history) => {
-  if (buttonNum === 1) {
-    history.push("/signup");
-  } else if (buttonNum === 2) {
-    history.push("/login");
-  }
-}
+import { Button, AppBar, Toolbar, Typography, Box } from '@mui/material';
+import { Link } from "react-router-dom";
 
 export default function Landing() {
-  let history = useHistory();
 
   return (
     <div className="Landing" style={{
       height: "100vh",
       display: "grid",
       gridTemplateRows: "5fr 95fr"
-    }}> 
+    }}>
       <AppBar position="static">
         <Toolbar>
 
@@ -26,6 +17,9 @@ export default function Landing() {
           </Typography>
 
           <Button
+            sx={{
+              backgroundColor: "primary.light"
+            }}
             variant="contained"
             component={Link}
             to="/login"
@@ -37,6 +31,9 @@ export default function Landing() {
           </Button>
 
           <Button
+            sx={{
+              backgroundColor: "primary.light"
+            }}
             variant="contained"
             component={Link}
             to="/signup"
@@ -47,10 +44,10 @@ export default function Landing() {
         </Toolbar>
       </AppBar>
 
-      <Box sx={{ display: "flex", justifyContent: "space-around", alignItems: "center", flexDirection: "column"}}>
-        <Typography variant="h3">Customer Relation Manager</Typography>
-        <Typography variant="h5">The best way to manage customer and your business' relationship with them.</Typography>
-        <Button variant="contained" component={Link} to="/signup" style={{height:"50px", width: "200px"}}>Get Started</Button>
+      <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column" }}>
+        <Typography variant="h3" style={{ marginBottom: "15vh" }}>Customer Relation Manager</Typography>
+        <Typography variant="h5" style={{ marginBottom: "5vh" }}>The best way to manage customer and your business' relationship with them.</Typography>
+        <Button variant="contained" component={Link} to="/signup" style={{ height: "50px", width: "200px" }}>Get Started</Button>
       </Box>
 
     </div>
