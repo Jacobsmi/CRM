@@ -49,11 +49,13 @@ async function createUser(first_name, last_name, email, password) {
     await insertIntoDB(first_name, last_name, email, hash);
     // Get the ID for the user so it can then be turned into a JWT
     const id = await getUserID(email);
+
     // Turn the user id into a JWT
     const signedJWT = jwt.sign({
       exp: Math.floor(Date.now() / 1000) + (60 * 60),
       data: id
     }, process.env.JWT_SECRET);
+    
     return [true, signedJWT];
   }catch(e){
     // Catch errors from any part of the process

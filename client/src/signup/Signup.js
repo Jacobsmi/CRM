@@ -3,6 +3,7 @@ import { useState } from "react";
 import { validateName, validateEmail, validatePassword } from "./validators";
 import createUser from "./createUser"
 import { useHistory } from "react-router-dom";
+import Errors from "./Errors";
 
 export default function Signup() {
   let history = useHistory();
@@ -29,7 +30,8 @@ export default function Signup() {
   const [validConfirm, setValidConfirm] = useState(true)
 
   // Track the error states
-  const [error, setError] = useState(false)
+  const [errors, setErrors] = useState(false)
+  const [errorType, setErrorType] = useState("")
 
   // Function that updates state and validity for the inputs each time they are changed
   // so their value and validity can be checked in real time
@@ -66,15 +68,16 @@ export default function Signup() {
       if (res.success === true) {
         history.push("/home")
       } else {
-        if (res.err === "duplicate_email") {
-          setError(true)
-        }
+        setErrors(true)
+        setErrorType(res.error)
       }
     }
-    setValidFirstName(validateName(firstName))
-    setValidLastName(validateName(lastName))
-    setValidEmail(validateEmail(email))
-    setValidPassword(validatePassword(password))
+    // If execution reaches here that means one or more fields is not valid so we need to 
+    // show the user which fields are not valid
+    setValidFirstName(validateName(firstName));
+    setValidLastName(validateName(lastName));
+    setValidEmail(validateEmail(email));
+    setValidPassword(validatePassword(password));
     setValidConfirm(password === confirm);
 
   }
@@ -87,9 +90,7 @@ export default function Signup() {
         sx={{ padding: 10, border: 5, borderColor: "primary.main", borderRadius: 10, }}
       >
         <Typography variant="h4" align="center" style={{ marginBottom: "5vh" }}>Sign Up</Typography>
-        <Box style={error ? { display: "block" } : { display: "none" }}>
-          Testing
-        </Box>
+        <Errors errorType={errorType} errors={errors} />
         <FormControl error={!validFirstName} variant="standard" style={{ display: "inline-block" }}>
           <InputLabel htmlFor="signup-first-name-input">First Name</InputLabel>
           <Input id="signup-first-name-input" value={firstName} onChange={handleChange} placeholder="First Name"
